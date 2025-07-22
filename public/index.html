@@ -151,9 +151,11 @@
                 let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
                 let pwd = $(this).val();
                 if (regex.test(pwd) == true)
-                    alert("Theek hai");
+                    // alert("Theek hai");
+                 $("#lblPwd").html("Theek hai");
                 else
-                    alert("Wrong Hai");
+                    // alert("Wrong Hai");
+                 $("#lblPwd").html("Theek hai");
             })
 
             // ---------------------------------------------------------------
@@ -903,6 +905,9 @@
                             </div>
 
                             <div class="">
+                               <div class="lbl-div">
+                    <label for="" id="lblPwd">Password</label>
+                </div>
                                 Password <input type="password" class="form-control" name="txtPwd" id="txtPwd">
                                 <i class="fa-solid fa-eye fa-bounce" id="eye"></i>
                                 <div style="display:flex;">
