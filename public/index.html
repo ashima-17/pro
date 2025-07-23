@@ -122,7 +122,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#txtEmail").blur(function () {
+            $("#txtEmail").keyup(function () {
                 let email = $(this).val();
                  let regrex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
                 // let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
