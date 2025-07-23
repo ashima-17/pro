@@ -124,12 +124,13 @@
         $(document).ready(function () {
             $("#txtEmail").keyup(function () {
                 let email = $(this).val();
-                // let regrex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
-                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                 let regrex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+                // let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
                 if (email == "") {
                     $("#errMsgE").html("Empty").addClass("not-ok").removeClass("ok");
                     $("#errPicE").addClass("not-ok-pic").removeClass("ok-pic");
                     $(this).focus();
+                   
 
                 }
 
@@ -142,7 +143,7 @@
                 }
 
                 else {
-                    $("#errMsgE").html("Ok").addClass("ok").removeClass("not-ok");
+                    $("#errMsgE").html("Valid Email id").addClass("ok").removeClass("not-ok");
                     $("#errPicE").addClass("ok-pic").removeClass("not-ok-pic");
                     $(this).focus();
                 }
@@ -917,7 +918,7 @@ Missions can focus on creating oppurtunties.
                         </div>
                         <div class="modal-body text-black">
                             <div class=" mb-3">
-                                Email ID <input type="text" class="form-control" name="txtEmail" id="txtEmail"
+                                Email ID <input type="email" class="form-control" name="txtEmail" id="txtEmail"
                                 >
                                 <div style="display:flex;">
                                     <div style="margin-right:10px;" id="errPicE"></div>
