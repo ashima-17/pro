@@ -137,22 +137,30 @@
 
                     $("#errMsgE").html("Invalid Emailid").addClass("not-ok").removeClass("ok");
                     $("#errPicE").addClass("not-ok-pic").removeClass("ok-pic");
+                    $(this).focus();
 
                 }
 
                 else {
                     $("#errMsgE").html("Ok").addClass("ok").removeClass("not-ok");
                     $("#errPicE").addClass("ok-pic").removeClass("not-ok-pic");
+                    $(this).focus();
                 }
 
             })
             // ----------------------------------------------------
-            $("#txtPwd").blur(function () {
+            $("#txtPwd").keyup(function () {
                 let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
                 let pwd = $(this).val();
                 if (regex.test(pwd) == true)
-                     alert("Theek hai");
+                    //  alert("Theek hai");
                 //  $("#lblPwd").html("Theek hai");
+                $("#errPicP").addClass("ok-pic").removeClass("not-ok-pic");
+                 $("#errMsgP").html("Password must be strong").addClass("not-ok").removeClass("ok");
+                
+
+
+
                 else
                      alert("Wrong Hai");
                 //  $("#lblPwd").html("Theek hai");
