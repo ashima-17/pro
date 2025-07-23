@@ -124,8 +124,8 @@
         $(document).ready(function () {
             $("#txtEmail").keyup(function () {
                 let email = $(this).val();
-                 let regex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
-                // let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                //  let regex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
                 if (email == "") {
                     $("#errMsgE").html("Empty").addClass("not-ok").removeClass("ok");
                     $("#errPicE").addClass("not-ok-pic").removeClass("ok-pic");
