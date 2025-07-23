@@ -152,18 +152,25 @@
             $("#txtPwd").keyup(function () {
                 let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
                 let pwd = $(this).val();
-                if (regex.test(pwd) == true)
+                if (regex.test(pwd) == true){
                     //  alert("Theek hai");
                 //  $("#lblPwd").html("Theek hai");
                 $("#errPicP").addClass("ok-pic").removeClass("not-ok-pic");
-                 $("#errMsgP").html("Password must be strong").addClass("not-ok").removeClass("ok");
-                
+                 $("#errMsgP").html("Strong Password correct").addClass("ok").removeClass("not-ok");
+            
+                }  
 
 
 
                 else
-                     alert("Wrong Hai");
+            {
+                 $("#errPicP").addClass("not-ok-pic").removeClass("ok-pic");
+                  $("#errMsgP").html("Password must be strong").addClass("not-ok").removeClass("ok");
+                
+
+                    //  alert("Wrong Hai");
                 //  $("#lblPwd").html("Theek hai");
+            }
             })
 
             // ---------------------------------------------------------------
