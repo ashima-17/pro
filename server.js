@@ -494,79 +494,70 @@ app.post("/profile-player", async function(req, resp) {
 });
 
 // ---------------------------------Update users data--------------------------------------------------
-app.post("/update-users-data", async function(req,resp){
-    let picA="";
-    try{
+// 
+app.post("/update-users-data", async function(req, resp) {
+    let picAbb = "";
+    let profiles = "";
+    let jsonData = {};
 
-    
-    if(req.files==null)
-    {
-         picA=req.body.hide;
-        console.log(picA);
-    }
+    try {
+        // Aadhar card image
+        if (!req.files || !req.files.picA) {
+            picAbb = req.body.hide;
+            console.log("Using hidden picAbb:", picAbb);
+        } else {
+            let fName = req.files.picA.name;
+            let fullPath = __dirname + "/public/uploads/" + fName;
+            await req.files.picA.mv(fullPath);
 
-    else
-    {
-        let fName = req.files.picA.name;
-        let fullPath = __dirname +"/public/uploads/"+fName;
-         req.files.picA.mv(fullPath);
-
-        await cloudinary.uploader.upload(fullPath).then( async function (picUrlResult) {
-            picA = picUrlResult.url;
-          //  console.log(picA);
-          jsonData=await RajeshBansalKaChirag(picA);
-        })
-    }
-}
-catch
-{
-    console.log("cloudinary crash");
-}
-
-
- let profile="";
-    if(req.files==null)
-    {
-        profile=req.body.hidden;
-        console.log(profile);
-    }
-
-    else
-    {
-        let fName = req.files.profile.name;
-        let fullPath = __dirname +"/public/uploads/"+fName;
-         req.files.profile.mv(fullPath);
-
-        await cloudinary.uploader.upload(fullPath).then(function (picUrlResult) {
-            profile= picUrlResult.url;
-          //  console.log(profile);
-        })
-    }
-        let emailid = req.body.txtEmail5;
-    //  console.log(emailid);
-    let personname = jsonData.name;
-    let dob = jsonData.dob;
-    // console.log(regnumber);
-    let gender = jsonData.gender;
-    let address = req.body.txtAdd2;
-    let contact = req.body.txtContact;
-    let game = req.body.txtGame;
-    let otherinfo = req.body.txtInfo;
-
-//     
-
-    mySqlVen.query(" update players set acardpicurl=?,profilepicurl=?, personname=?,dob=?,gender=?,address=?,contact=?,game=?,otherinfo=? where emailid=?", [picA,profile, personname, dob, gender, address, contact, game,  otherinfo,emailid], function (errKuch,result) {
-        if (errKuch == null)
-        {
-            if(result.affectedRows==1)
-                        resp.send("Record  Update Saved Successfulllyyy....Badhai");
-                    else
-                        resp.send("Inavlid email Id hai can't be updated");
+            const picUrlResult = await cloudinary.uploader.upload(fullPath);
+            picAbb = picUrlResult.url;
+            jsonData = await RajeshBansalKaChirag(picAbb);
         }
-        else
-            resp.send(errKuch.message);
-    })
-})
+
+        // Profile picture
+        if (!req.files || !req.files.profile) {
+            profiles = req.body.hidden;
+            console.log("Using hidden profile:", profiles);
+        } else {
+            let fName = req.files.profile.name;
+            let fullPath = __dirname + "/public/uploads/" + fName;
+            await req.files.profile.mv(fullPath);
+
+            const picUrlResult = await cloudinary.uploader.upload(fullPath);
+            profiles = picUrlResult.url;
+            console.log("Uploaded profile:", profiles);
+        }
+
+        let emailid = req.body.txtEmail5;
+        let personname = jsonData.name;
+        let dob = jsonData.dob;
+        let gender = jsonData.gender;
+        let address = req.body.txtAdd2;
+        let contact = req.body.txtContact;
+        let game = req.body.txtGame;
+        let otherinfo = req.body.txtInfo;
+
+        mySqlVen.query(
+            "UPDATE players SET acardpicurl=?, profilepicurl=?, personname=?, dob=?, gender=?, address=?, contact=?, game=?, otherinfo=? WHERE emailid=?",
+            [picAbb, profiles, personname, dob, gender, address, contact, game, otherinfo, emailid],
+            function (errKuch, result) {
+                if (errKuch == null) {
+                    if (result.affectedRows == 1)
+                        resp.send("Record Updated Successfully!");
+                    else
+                        resp.send("Invalid Email ID; cannot update.");
+                } else {
+                    resp.send(errKuch.message);
+                }
+            }
+        );
+    } catch (error) {
+        console.error("Error in /update-users-data:", error);
+        resp.status(500).send("Internal Server Error");
+    }
+});
+
 // ----------------------------------User Admin Console-----------------------------------------------------
 
  app.get("/do-fetch",function(req,resp)
